@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class ObjCoord : MonoBehaviour
 {
-    public GameObject objN;
+    public GameObject objName;
     public Transform objTransform;
     void Awake()
     {
 
     }
-    public GameObject objName()
-    { 
-        objN = GameObject.FindGameObjectWithTag("trash");
+    public GameObject objNamee()
+    {
+        objName = GameObject.FindGameObjectWithTag("trash");
         objTransform = GetComponent<Transform>();
-        //Debug.Log(objName);
-        return objN;
+        Debug.Log(objName);
+        return objName;
     }
 
     void Update()
     {
-        
+
     }
 }
