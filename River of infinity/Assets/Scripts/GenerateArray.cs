@@ -7,25 +7,23 @@ public class GenerateArray : MonoBehaviour
 {
     public const int Width = 44;
     public const int Height = 25;
-    public static int[,] GenerateArrayMap()
-    {
-        
-        
-        int[,] map = new int[Width, Height];
-
+                                                                                        
+    public static int[,] GenerateArrayMap()                                             // 1 - Левый берег реки
+    {                                                                                   // 2 - Река
+        int[,] map = new int[Width, Height];                                            // 3 - Правый берег реки
+                                                                                        //
+        map[Random.Range(2,Width - 6), 0] = 1;                                          //
+                                                                                        //
         for (int x = 0; x < map.GetUpperBound(0); x++)
         {
             for(int y = 0; y < map.GetUpperBound(1); y++)
             {
-                if(x == Width/2 || x == Width/2 +1 || x == Width/2 - 1)
+               if (map[x , y] == 1)
                 {
-                    map[x, y] = 0;
+                    map[x , y + 1 ] = 1;
+                    map[x + 1 , y ] = 2;
+                    map[x + 2 , y ] = 3;
                 }
-                else
-                { 
-                    map[x, y] = 1; 
-                }
-                
             }
         }
         return map;
@@ -33,35 +31,44 @@ public class GenerateArray : MonoBehaviour
 
     private void Start()
     {
-       
-        Sprite grass = Resources.Load("Grass1") as Sprite;
         Tilemap tilemap = GetComponent<Tilemap>();
-       // Tile river = Resources.Load("") as Tile;
-        AnimatedTile riverAnim = Resources.Load("River down") as AnimatedTile;
-       // Debug.Log(tilemap.size);
-       // Debug.Log(grass);
+
+        Sprite grass = Resources.Load("Grass1") as Sprite;
         Tile grassTile = ScriptableObject.CreateInstance<Tile>();
         grassTile.sprite = grass;
-        // tilemap.SetTile(new Vector3Int(0,0,0), grassTile);
-        // GenerateArrayMap(50, 24);
-       
+
+        AnimatedTile riverAnim = Resources.Load("River down") as AnimatedTile;
+        AnimatedTile RiverRightBank = Resources.Load("River down the right bank") as AnimatedTile;
+        AnimatedTile RiverLeftBank = Resources.Load("River down the left bank") as AnimatedTile;
+
         RenderMap(GenerateArrayMap(), tilemap, grassTile, riverAnim);
     }
 
     public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile, AnimatedTile animTile)
     {
+        AnimatedTile riverAnim = Resources.Load("River down") as AnimatedTile;
+        AnimatedTile RiverRightBank = Resources.Load("River down the right bank") as AnimatedTile;
+        AnimatedTile RiverLeftBank = Resources.Load("River down the left bank") as AnimatedTile;
         for (int x = 0; x < map.GetUpperBound(0); x++)
         {
             for(int y = 0; y < map.GetUpperBound(1); y++)
             {
-                if (map[x,y] == 0)
+                if (map[x,y] == 1)
                 {
-                    tilemap.SetTile(new Vector3Int(x - Width/2, y - Height/2, 0), animTile);
-                }
-                else
+                    tilemap.SetTile(new Vector3Int(x - Width/2, y - Height/2, 0), RiverLeftBank);
+                } 
+                else if (map[x,y] == 2)
                 {
-                    tilemap.SetTile(new Vector3Int(x - Width/2, y - Height/2, 0), tile);
+                    tilemap.SetTile(new Vector3Int(x - Width / 2, y - Height / 2, 0), riverAnim);
                 }
+                else if (map[x,y] == 3)
+                {
+                    tilemap.SetTile(new Vector3Int(x - Width / 2, y - Height / 2, 0), RiverRightBank);
+                }
+              //  else
+              //  {
+               //     tilemap.SetTile(new Vector3Int(x - Width/2, y - Height/2, 0), tile);
+               // }
                 
             }
         }
