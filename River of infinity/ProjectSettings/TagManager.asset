@@ -5,6 +5,22 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
+  - AnimatedTile
+  - River
+  - ObjectMovable
+  - MovableObject
+  - ContainerFakeRiver
+  - StopMovableObject
+  - ObjectTouchedRiver
+  - FakeRiver
+  - ObjectCreator
+  - TargetForEnemy
+  - Garbage
+  - TargetsForEnemy
+  - ScoreManager
+  - Dam
+  - WaterScale
+  - RestartButton
   layers:
   - Default
   - TransparentFX
@@ -15,7 +31,7 @@ TagManager:
   - Clickable
   - arenaLayer
   - clickableLayer
-  - 
+  - VGBB
   - 
   - 
   - 
